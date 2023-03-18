@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class SongService {
@@ -76,5 +77,12 @@ public class SongService {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public List<Song> getSongsByArtist(String artist) {
+        List<Song> songs = getAllSongs();
+        return songs.stream()
+                .filter(song -> song.getArtist().equalsIgnoreCase(artist))
+                .collect(Collectors.toList());
     }
 }

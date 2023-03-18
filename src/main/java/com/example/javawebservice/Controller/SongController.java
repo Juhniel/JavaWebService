@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/songs")
+@RequestMapping("/api")
 public class SongController {
 
     private final SongService songService;
@@ -18,9 +18,14 @@ public class SongController {
         this.songService = songService;
     }
 
-    @GetMapping
+    @GetMapping("/allSongs")
     public ResponseEntity<List<Song>> getAllSongs() {
         return ResponseEntity.ok(songService.getAllSongs());
+    }
+
+    @GetMapping("/artist/{artist}")
+    public ResponseEntity<List<Song>> getSongsByArtist(@PathVariable String artist) {
+        return ResponseEntity.ok(songService.getSongsByArtist(artist));
     }
 
     @GetMapping("/{songId}")
@@ -30,24 +35,9 @@ public class SongController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping
+    @PostMapping("/songs")
     public ResponseEntity<Song> addSong(@RequestBody Song song) {
         Song createdSong = songService.addSong(song);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdSong);
-    }
-
-    @PutMapping("/{songId}")
-    public ResponseEntity<Song> updateSong(@PathVariable String songId, @RequestBody Song song) {
-        return songService.updateSong(songId, song)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-    }
-
-    @DeleteMapping("/{songId}")
-    public ResponseEntity<Void> deleteSong(@PathVariable String songId) {
-        if (songService.deleteSong(songId)) {
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.notFound().build();
     }
 }
