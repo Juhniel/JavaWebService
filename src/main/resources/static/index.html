@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript" src="js/script.js" defer></script>
+    <title>Song Service</title>
+</head>
+<body>
+
+<h1>Song Service</h1>
+
+<h2>Get All Songs</h2>
+<button onclick="getAllSongs()">Get All Songs</button>
+
+<div id="allSongs"></div>
+<h2>Add Song</h2>
+<form onsubmit="addSong(event)">
+    <label for="artist">Artist:</label>
+    <input type="text" id="artist" name="artist" required><br>
+    <label for="song">Song:</label>
+    <input type="text" id="song" name="song" required><br>
+    <button type="submit">Add Song</button>
+</form>
+
+</body>
+</html>
