@@ -1,11 +1,12 @@
-const BASE_URL = 'http://localhost:8080/api/songs';
+const BASE_URL = 'http://localhost:8080/api/addSong';
 const allSongs = document.getElementById('allSongs');
 
 function addSong(event) {
     event.preventDefault();
     const artist = document.getElementById('artist').value;
     const song = document.getElementById('song').value;
-    const data = { artist, song };
+    const genre = document.getElementById('genre').value;
+    const data = { artist, song, genre };
     console.log("Data to send:", data);
 
     fetch(BASE_URL, {
@@ -17,21 +18,17 @@ function addSong(event) {
         .then(song => {
             const songDiv = document.createElement('div');
             songDiv.innerHTML = `
-                        <h3>${song.artist} - ${song.song}</h3>
-                        <button onclick="deleteSong('${song.id}')">Delete</button>
+                        <p>${song.artist} - ${song.song} (${song.genre}) - Song Succesfully added!</p>
                     `;
-            allSongs.appendChild(songDiv);
-        })
-        .catch(error => console.error(error));
-}
 
-function deleteSong(songId) {
-    fetch(`${BASE_URL}/${songId}`, { method: 'DELETE' })
-        .then(response => {
-            if (response.status === 204) {
-                const songDiv = document.querySelector(`[onclick="deleteSong('${songId}')"]`).parentElement;
-                songDiv.remove();
-            }
+            // Append the new songDiv to allSongs
+            allSongs.appendChild(songDiv);
+
+            // Clear the input fields
+            document.getElementById('artist').value = '';
+            document.getElementById('song').value = '';
+            document.getElementById('genre').value = '';
+
         })
         .catch(error => console.error(error));
 }

@@ -27,7 +27,8 @@ public class SongService {
         try {
             File file = new File(JSON_FILE_PATH);
             if (file.exists()) {
-                return objectMapper.readValue(file, new TypeReference<List<Song>>() {});
+                return objectMapper.readValue(file, new TypeReference<>() {
+                });
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -48,29 +49,6 @@ public class SongService {
         return song;
     }
 
-    public Optional<Song> updateSong(String songId, Song updatedSong) {
-        List<Song> songs = getAllSongs();
-        Optional<Song> existingSong = songs.stream().filter(song -> song.getId().equals(songId)).findFirst();
-        if (existingSong.isPresent()) {
-            Song song = existingSong.get();
-            song.setArtist(updatedSong.getArtist());
-            song.setSong(updatedSong.getSong());
-            saveSongs(songs);
-        }
-        return existingSong;
-    }
-
-    public boolean deleteSong(String songId) {
-        List<Song> songs = getAllSongs();
-        Optional<Song> songToDelete = songs.stream().filter(song -> song.getId().equals(songId)).findFirst();
-        if (songToDelete.isPresent()) {
-            songs.remove(songToDelete.get());
-            saveSongs(songs);
-            return true;
-        }
-        return false;
-    }
-
     private void saveSongs(List<Song> songs) {
         try {
             objectMapper.writeValue(new File(JSON_FILE_PATH), songs);
@@ -83,6 +61,13 @@ public class SongService {
         List<Song> songs = getAllSongs();
         return songs.stream()
                 .filter(song -> song.getArtist().equalsIgnoreCase(artist))
+                .collect(Collectors.toList());
+    }
+
+    public List<Song> getSongsByGenre(String genre) {
+        List<Song> songs = getAllSongs();
+        return songs.stream()
+                .filter(song -> song.getGenre().equalsIgnoreCase(genre))
                 .collect(Collectors.toList());
     }
 }

@@ -2,6 +2,7 @@ package com.example.javawebservice.Controller;
 
 import com.example.javawebservice.Service.SongService;
 import com.example.javawebservice.Model.Song;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,11 +13,10 @@ import java.util.List;
 @RequestMapping("/api")
 public class SongController {
 
-    private final SongService songService;
 
-    public SongController(SongService songService) {
-        this.songService = songService;
-    }
+    @Autowired
+    private SongService songService;
+
 
     @GetMapping("/allSongs")
     public ResponseEntity<List<Song>> getAllSongs() {
@@ -35,9 +35,14 @@ public class SongController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping("/songs")
+    @PostMapping("/addSong")
     public ResponseEntity<Song> addSong(@RequestBody Song song) {
         Song createdSong = songService.addSong(song);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdSong);
+    }
+
+    @GetMapping("/genre/{genre}")
+    public ResponseEntity<List<Song>> getSongsByGenre(@PathVariable String genre) {
+        return ResponseEntity.ok(songService.getSongsByGenre(genre));
     }
 }
