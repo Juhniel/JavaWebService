@@ -3,6 +3,7 @@ package com.example.javawebservice.Controller;
 import com.example.javawebservice.Service.SongService;
 import com.example.javawebservice.Model.Song;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,9 @@ public class SongController {
     @Autowired
     private SongService songService;
 
+    @Autowired
+    private ConfigurableApplicationContext configurableApplicationContext;
+
 
     @GetMapping("/allSongs")
     public ResponseEntity<List<Song>> getAllSongs() {
@@ -28,12 +32,12 @@ public class SongController {
         return ResponseEntity.ok(songService.getSongsByArtist(artist));
     }
 
-    @GetMapping("/{songId}")
-    public ResponseEntity<Song> getSong(@PathVariable String songId) {
-        return songService.getSong(songId)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-    }
+//    @GetMapping("/{songId}")
+//    public ResponseEntity<Song> getSong(@PathVariable String songId) {
+//        return songService.getSong(songId)
+//                .map(ResponseEntity::ok)
+//                .orElse(ResponseEntity.notFound().build());
+//    }
 
     @PostMapping("/addSong")
     public ResponseEntity<Song> addSong(@RequestBody Song song) {
@@ -44,5 +48,10 @@ public class SongController {
     @GetMapping("/genre/{genre}")
     public ResponseEntity<List<Song>> getSongsByGenre(@PathVariable String genre) {
         return ResponseEntity.ok(songService.getSongsByGenre(genre));
+    }
+
+    @GetMapping("/quit")
+    public void quit() {
+        configurableApplicationContext.close();
     }
 }

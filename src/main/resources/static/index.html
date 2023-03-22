@@ -1,25 +1,49 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="stylesheet" href="css/style.css" type="text/css">
     <script type="text/javascript" src="js/script.js" defer></script>
     <title>Song Service</title>
 </head>
 <body>
 
-<h1>Song Service</h1>
+<div class="container">
+    <div class="left">
+        <h2>Add Song</h2>
+        <form onsubmit="addSong(event)">
+            <label for="artist">Artist:</label>
+            <input type="text" id="artist" name="artist" required><br>
+            <label for="song">Song:</label>
+            <input type="text" id="song" name="song" required><br>
+            <label for="genre">Genre:</label>
+            <input type="text" id="genre" name="genre" required><br>
+            <button type="submit">Add Song</button>
+        </form>
+    </div>
 
-<h2>Add Song</h2>
-<form onsubmit="addSong(event)">
-    <label for="artist">Artist:</label>
-    <input type="text" id="artist" name="artist" required><br>
-    <label for="song">Song:</label>
-    <input type="text" id="song" name="song" required><br>
-    <label for="genre">Genre:</label>
-    <input type="text" id="genre" name="genre" required><br>
-    <button type="submit">Add Song</button>
-</form>
+    <div class="right">
+        <h2>Search Songs by Artist</h2>
+        <form onsubmit="redirectToArtist(event)">
+            <label for="searchArtist">Artist:</label>
+            <input type="text" id="searchArtist" name="searchArtist" required>
+            <button type="submit">Search</button>
+        </form>
 
-<div id="allSongs"></div>
+        <h2>Search Songs by Genre</h2>
+        <form onsubmit="searchSongsByGenre(event)">
+            <label for="searchGenre">Genre:</label>
+            <input type="text" id="searchGenre" name="searchGenre" required><br>
+            <button type="submit">Search</button>
+        </form>
+    </div>
+</div>
+
+<div class="show-all-songs">
+    <form action="/api/allSongs">
+        <button>Show all songs</button>
+    </form>
+</div>
+
 
 </body>
 </html>

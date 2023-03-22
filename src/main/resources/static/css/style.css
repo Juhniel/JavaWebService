@@ -1,0 +1,56 @@
+body {
+    font-family: Arial, sans-serif;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.left, .right {
+    width: 48%;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+h1, h2 {
+    color: #333;
+}
+
+input, button {
+    padding: 6px;
+    font-size: 14px;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+}
+
+.show-all-songs {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.show-all-songs form button {
+    font-size: 30px;
+    padding: 30px 40px;
+    background-color: deeppink;
+}

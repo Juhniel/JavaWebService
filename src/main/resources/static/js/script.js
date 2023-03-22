@@ -32,3 +32,16 @@ function addSong(event) {
         })
         .catch(error => console.error(error));
 }
+
+
+function redirectToArtist(event) {
+    event.preventDefault();
+    const artist = document.getElementById('searchArtist').value;
+    window.location.href = `http://localhost:8080/api/artist/${artist}`;
+}
+
+function searchSongsByGenre(event) {
+    event.preventDefault();
+    const genre = document.getElementById('searchGenre').value;
+    window.location.href = `http://localhost:8080/api/genre/${genre}`;
+}
