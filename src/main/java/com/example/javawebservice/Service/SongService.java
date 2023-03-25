@@ -17,12 +17,12 @@ import java.util.stream.Collectors;
 public class SongService {
 
     private static final String JSON_FILE_PATH = "src/main/resources/music.json";
-    private final ObjectMapper objectMapper;
+    private  final ObjectMapper objectMapper;
 
     public SongService() {
         objectMapper = new ObjectMapper();
     }
-
+    // Hämta låtar från JSON-fil och returnerar dem som en ArrayList.
     public List<Song> getAllSongs() {
         try {
             File file = new File(JSON_FILE_PATH);
@@ -36,6 +36,7 @@ public class SongService {
         return new ArrayList<>();
     }
 
+    // Lägger till låt i listan och sparar till JSON-fil
     public Song addSong(Song song) {
         List<Song> songs = getAllSongs();
         song.setId(UUID.randomUUID().toString());
@@ -44,6 +45,8 @@ public class SongService {
         return song;
     }
 
+
+    // Spara en lista av låtar till JSON-fil
     private void saveSongs(List<Song> songs) {
         try {
             objectMapper.writeValue(new File(JSON_FILE_PATH), songs);
