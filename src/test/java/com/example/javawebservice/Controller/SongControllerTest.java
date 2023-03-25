@@ -24,8 +24,7 @@ import java.util.List;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -41,6 +40,25 @@ public class SongControllerTest {
 
     @Test
     public void getAllSongs_shouldReturnSongs() throws Exception {
+//        Song song = new Song();
+//        song.setId("1");
+//        song.setArtist("Test Artist");
+//        song.setSong("Test Song");
+//        song.setGenre("Test Genre");
+//
+//        List<Song> allSongs = Collections.singletonList(song);
+//
+//        when(songService.getAllSongs()).thenReturn(allSongs);
+//
+//        mockMvc.perform(get("/api/allSongs")
+//                        .contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(status().isOk())
+//                .andExpect(jsonPath("$.size()").value(allSongs.size()))
+//                .andExpect(jsonPath("$[0].id").value(song.getId()))
+//                .andExpect(jsonPath("$[0].artist").value(song.getArtist()))
+//                .andExpect(jsonPath("$[0].song").value(song.getSong()))
+//                .andExpect(jsonPath("$[0].genre").value(song.getGenre()));
+
         Song song = new Song();
         song.setId("1");
         song.setArtist("Test Artist");
@@ -51,14 +69,12 @@ public class SongControllerTest {
 
         when(songService.getAllSongs()).thenReturn(allSongs);
 
+        String expectedJsonResponse = "[{\"id\":\"1\",\"artist\":\"Test Artist\",\"song\":\"Test Song\",\"genre\":\"Test Genre\"}]";
+
         mockMvc.perform(get("/api/allSongs")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.size()").value(allSongs.size()))
-                .andExpect(jsonPath("$[0].id").value(song.getId()))
-                .andExpect(jsonPath("$[0].artist").value(song.getArtist()))
-                .andExpect(jsonPath("$[0].song").value(song.getSong()))
-                .andExpect(jsonPath("$[0].genre").value(song.getGenre()));
+                .andExpect(content().json(expectedJsonResponse));
     }
 
     @Test
@@ -79,13 +95,12 @@ public class SongControllerTest {
         ObjectMapper objectMapper = new ObjectMapper();
         String newSongJson = objectMapper.writeValueAsString(newSong);
 
+        String expectedJsonResponse = "{\"id\":\"2\",\"artist\":\"New Artist\",\"song\":\"New Song\",\"genre\":\"New Genre\"}";
+
         mockMvc.perform(post("/api/addSong")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(newSongJson))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id").value(savedSong.getId()))
-                .andExpect(jsonPath("$.artist").value(savedSong.getArtist()))
-                .andExpect(jsonPath("$.song").value(savedSong.getSong()))
-                .andExpect(jsonPath("$.genre").value(savedSong.getGenre()));
+                .andExpect(content().json(expectedJsonResponse));
     }
 }

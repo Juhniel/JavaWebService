@@ -18,9 +18,6 @@ public class SongController {
     @Autowired
     private SongService songService;
 
-    @Autowired
-    private ConfigurableApplicationContext configurableApplicationContext;
-
 
     @GetMapping("/allSongs")
     public ResponseEntity<List<Song>> getAllSongs() {
