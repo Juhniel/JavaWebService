@@ -39,26 +39,7 @@ public class SongControllerTest {
 
 
     @Test
-    public void getAllSongs_shouldReturnSongs() throws Exception {
-//        Song song = new Song();
-//        song.setId("1");
-//        song.setArtist("Test Artist");
-//        song.setSong("Test Song");
-//        song.setGenre("Test Genre");
-//
-//        List<Song> allSongs = Collections.singletonList(song);
-//
-//        when(songService.getAllSongs()).thenReturn(allSongs);
-//
-//        mockMvc.perform(get("/api/allSongs")
-//                        .contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$.size()").value(allSongs.size()))
-//                .andExpect(jsonPath("$[0].id").value(song.getId()))
-//                .andExpect(jsonPath("$[0].artist").value(song.getArtist()))
-//                .andExpect(jsonPath("$[0].song").value(song.getSong()))
-//                .andExpect(jsonPath("$[0].genre").value(song.getGenre()));
-
+    public void getAllSongs() throws Exception {
         Song song = new Song();
         song.setId("1");
         song.setArtist("Test Artist");
@@ -78,7 +59,7 @@ public class SongControllerTest {
     }
 
     @Test
-    public void addSong_shouldAddSong() throws Exception {
+    public void addSong() throws Exception {
         Song newSong = new Song();
         newSong.setArtist("New Artist");
         newSong.setSong("New Song");
