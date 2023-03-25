@@ -36,11 +36,6 @@ public class SongService {
         return new ArrayList<>();
     }
 
-    public Optional<Song> getSong(String songId) {
-        List<Song> songs = getAllSongs();
-        return songs.stream().filter(song -> song.getId().equals(songId)).findFirst();
-    }
-
     public Song addSong(Song song) {
         List<Song> songs = getAllSongs();
         song.setId(UUID.randomUUID().toString());
