@@ -18,7 +18,7 @@ public class SongController {
     @Autowired
     private SongService songService;
 
-
+    // GetMappings för respektive url
     @GetMapping("/allSongs")
     public ResponseEntity<List<Song>> getAllSongs() {
         return ResponseEntity.ok(songService.getAllSongs());
@@ -31,6 +31,7 @@ public class SongController {
 
     @PostMapping("/addSong")
     public ResponseEntity<Song> addSong(@RequestBody Song song) {
+        // Skapar ny låt och lägger till den till response
         Song createdSong = songService.addSong(song);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdSong);
     }
